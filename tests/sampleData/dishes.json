@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Cheese Pizza",
+        "description": "A pizza with cheese",
+        "price":"$20",
+        "category":"Pizza",
+        "inStock": "true",
+        "rating": "4",
+        "image": ""
+    },
+    {
+        "name": "Butter Pizza",
+        "description": "A pizza with butter",
+        "price":"$10",
+        "category":"Pizza",
+        "inStock": "true",
+        "rating": "3",
+        "image": ""
+    },
+    {
+        "name": "Margeretta Pizza",
+        "description": "A pizza with margeretta",
+        "price":"$30",
+        "category":"Pizza",
+        "inStock": "true",
+        "rating": "5",
+        "image": ""
+    }
+]
