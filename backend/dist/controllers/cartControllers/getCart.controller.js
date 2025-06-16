@@ -21,24 +21,23 @@ const getCartFunction = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (!userMakingRequest) {
             throw new ApiError_1.ApiError(404, "User not found");
         }
-        const cartId = userMakingRequest.cart;
         const cart = yield cart_model_1.CartModel.aggregate([
             {
                 $match: {
-                    _id: cartId
+                    user: userMakingRequest._id,
                 },
             },
             {
                 $lookup: {
-                    from: 'dishmodels',
+                    from: "dishmodels",
                     localField: "items.product",
                     foreignField: "_id",
-                    as: "items.product"
-                }
-            }
+                    as: "items.product",
+                },
+            },
         ]);
         // console.log(cartId)
-        // console.log(cart)
+        // console.log(cart);
         if (!cart) {
             throw new ApiError_1.ApiError(404, "Cart not found");
         }
@@ -46,7 +45,7 @@ const getCartFunction = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     catch (err) {
         console.error(err);
-        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ "error": err });
+        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ error: err });
     }
 });
 exports.getCartFunction = getCartFunction;

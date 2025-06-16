@@ -19,8 +19,7 @@ const generateAccessToken = async (userId: any): Promise<any> => {
 
 export const loginFunction = async (req: Request, res: Response) => {
     try {
-        console.log({"Request body": req.body})
-        const {email, password} = req.body;
+        const { email, password } = req.body;
         if (!email) {
             throw new ApiError(400, "Enter an email");
         }
@@ -40,9 +39,8 @@ export const loginFunction = async (req: Request, res: Response) => {
         // const loggedInUser = await UserModel.findById(
         //     userTryingToLogin._id
         // ).select("-password");
-        // options
         const options = {
-            htmlOnly: false,
+            httpOnly: false,
             secure: false,
         };
         res.status(200)
@@ -56,6 +54,6 @@ export const loginFunction = async (req: Request, res: Response) => {
             );
     } catch (err: any) {
         console.error(err);
-        res.status(err?.statusCode || 500).json({"error": err});
+        res.status(err?.statusCode || 500).json({ error: err });
     }
 };

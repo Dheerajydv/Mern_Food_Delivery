@@ -29,7 +29,6 @@ const generateAccessToken = (userId) => __awaiter(void 0, void 0, void 0, functi
 });
 const loginFunction = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log({ "Request body": req.body });
         const { email, password } = req.body;
         if (!email) {
             throw new ApiError_1.ApiError(400, "Enter an email");
@@ -50,9 +49,8 @@ const loginFunction = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         // const loggedInUser = await UserModel.findById(
         //     userTryingToLogin._id
         // ).select("-password");
-        // options
         const options = {
-            htmlOnly: false,
+            httpOnly: false,
             secure: false,
         };
         res.status(200)
@@ -61,7 +59,7 @@ const loginFunction = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (err) {
         console.error(err);
-        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ "error": err });
+        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ error: err });
     }
 });
 exports.loginFunction = loginFunction;

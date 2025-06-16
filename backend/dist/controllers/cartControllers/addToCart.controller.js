@@ -28,13 +28,37 @@ const addToCartFunction = (req, res) => __awaiter(void 0, void 0, void 0, functi
             throw new ApiError_1.ApiError(404, "Dish not found");
         }
         const { quantity } = req.body;
-        const cart = yield cart_model_1.CartModel.create({ user: userMakingRequest, items: [{ product: productToAdd, quantity }] });
-        yield user_model_1.UserModel.findByIdAndUpdate(userId, { cart });
-        res.status(200).json(new ApiResponse_1.ApiResponse(200, cart, "Items added to cart"));
+        //if cart already exists
+        const alreadyCreatedCart = yield cart_model_1.CartModel.findOne({
+            user: userMakingRequest._id,
+        });
+        if (alreadyCreatedCart) {
+            // const updatedCart = await CartModel.findOneAndUpdate({
+            //     user: userMakingRequest._id,
+            // }, {
+            //     items
+            // });
+            const productToAddInAlreadyExistingCart = {
+                product: productToAdd._id,
+                quantity,
+            };
+            alreadyCreatedCart.items.push(productToAddInAlreadyExistingCart);
+            alreadyCreatedCart.save();
+            res.status(200).json(new ApiResponse_1.ApiResponse(200, alreadyCreatedCart, "Items added to cart"));
+        }
+        else {
+            //if it doesnot
+            const cart = yield cart_model_1.CartModel.create({
+                user: userMakingRequest,
+                items: [{ product: productToAdd, quantity }],
+            });
+            yield user_model_1.UserModel.findByIdAndUpdate(userId, { cart });
+            res.status(200).json(new ApiResponse_1.ApiResponse(200, cart, "Items added to cart"));
+        }
     }
     catch (err) {
         console.error(err);
-        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ "error": err });
+        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ error: err });
     }
 });
 exports.addToCartFunction = addToCartFunction;
