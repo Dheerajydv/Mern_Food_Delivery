@@ -61,7 +61,6 @@ export const getDishBySearchId = async (req: Request, res: Response) => {
             throw new ApiError(400, "Dish id not found")
         }
         const dish = await DishModel.findById(dishId)
-        console.log(dish)
         if(!dish){
             throw new ApiError(404, "Dish not found")
         }
