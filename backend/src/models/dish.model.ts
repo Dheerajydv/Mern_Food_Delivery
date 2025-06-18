@@ -2,7 +2,7 @@ import mongoose, { mongo, Schema } from "mongoose";
 
 export interface Dish {
     name: string;
-    slug: string
+    slug: string;
     description: string;
     price: number;
     image: string;
@@ -14,7 +14,7 @@ export interface Dish {
 const DishSchema: Schema<Dish> = new Schema(
     {
         name: { type: String, required: true, minlength: 2, maxlength: 100 },
-        slug: {type: String},
+        slug: { type: String },
         description: {
             type: String,
             required: true,
@@ -31,15 +31,8 @@ const DishSchema: Schema<Dish> = new Schema(
         },
         category: {
             type: String,
-            enum: [
-                "Pizzas",
-                "Burgers",
-                "Sandwitches",
-                "Desserts",
-                "Beverages",
-                "Non-Veg",
-            ],
-            required: true
+            enum: ["Pizzas", "Burgers", "Sandwitches", "Desserts", "Beverages"],
+            required: true,
         },
         inStock: {
             type: Boolean,

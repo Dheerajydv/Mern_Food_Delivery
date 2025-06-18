@@ -7,12 +7,14 @@ import {editDishFunction} from "../../controllers/dishControllers/editDish.contr
 import {removeDishFunction} from "../../controllers/dishControllers/removeDish.controller"
 import {getSearchedDishFunction} from "../../controllers/dishControllers/searchDish.controller"
 import {getDishBySearchedCategoryFunction} from "../../controllers/dishControllers/searchDish.controller"
+import {getDishBySearchId} from "../../controllers/dishControllers/searchDish.controller"
 import { upload } from "../../middlewares/multer.middleware";
 
 const router = Router();
 
 router.get("/all", getAllDishesFunction);
 router.get("/search/:dish", getSearchedDishFunction);
+router.get("/searchById/:dishId", getDishBySearchId);
 router.get("/category/:category", getDishBySearchedCategoryFunction);
 router.post("/add", verifyUserAutherization, checkIfAdmin, upload.single("image"), addDishFunction);
 router.delete("/remove/:id", verifyUserAutherization, checkIfAdmin, removeDishFunction);

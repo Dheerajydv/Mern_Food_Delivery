@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDishBySearchedCategoryFunction = exports.getSearchedDishFunction = void 0;
+exports.getDishBySearchId = exports.getDishBySearchedCategoryFunction = exports.getSearchedDishFunction = void 0;
 const dish_model_1 = require("../../models/dish.model");
 const ApiError_1 = require("../../helpers/ApiError");
 const ApiResponse_1 = require("../../helpers/ApiResponse");
@@ -17,7 +17,7 @@ const getSearchedDishFunction = (req, res) => __awaiter(void 0, void 0, void 0, 
     try {
         // Todo : get searched dish
         const dishToSearchSlug = req.params.dish;
-        const dishToSearch = dishToSearchSlug.replace(/-/g, ' ');
+        const dishToSearch = dishToSearchSlug.replace(/-/g, " ");
         if (!dishToSearch) {
             throw new ApiError_1.ApiError(400, "Dish name required");
         }
@@ -29,7 +29,7 @@ const getSearchedDishFunction = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
     catch (err) {
         console.error(err);
-        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ "error": err });
+        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ error: err });
     }
 });
 exports.getSearchedDishFunction = getSearchedDishFunction;
@@ -40,15 +40,36 @@ const getDishBySearchedCategoryFunction = (req, res) => __awaiter(void 0, void 0
         if (!categoryOfDishToSearch) {
             throw new ApiError_1.ApiError(400, "Select category to search");
         }
-        const allDishesOfSearchedCategory = yield dish_model_1.DishModel.find({ category: categoryOfDishToSearch });
+        const allDishesOfSearchedCategory = yield dish_model_1.DishModel.find({
+            category: categoryOfDishToSearch,
+        });
         if (!allDishesOfSearchedCategory) {
             throw new ApiError_1.ApiError(400, "Dishes of selected category not found");
         }
-        res.status(200).json(new ApiResponse_1.ApiResponse(200, allDishesOfSearchedCategory, `All dishes of ${categoryOfDishToSearch} fetched`));
+        res.status(200).json(new ApiResponse_1.ApiResponse(200, allDishesOfSearchedCategory, `All ${categoryOfDishToSearch} fetched`));
     }
     catch (err) {
         console.error(err);
-        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ "error": err });
+        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ error: err });
     }
 });
 exports.getDishBySearchedCategoryFunction = getDishBySearchedCategoryFunction;
+const getDishBySearchId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const dishId = req.params.dishId;
+        if (!dishId) {
+            throw new ApiError_1.ApiError(400, "Dish id not found");
+        }
+        const dish = yield dish_model_1.DishModel.findById(dishId);
+        console.log(dish);
+        if (!dish) {
+            throw new ApiError_1.ApiError(404, "Dish not found");
+        }
+        res.status(200).json(new ApiResponse_1.ApiResponse(200, dish, "Dish found"));
+    }
+    catch (err) {
+        console.error("Some error ", err);
+        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ error: err });
+    }
+});
+exports.getDishBySearchId = getDishBySearchId;

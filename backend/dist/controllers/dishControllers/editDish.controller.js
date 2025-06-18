@@ -18,12 +18,7 @@ const editDishFunction = (req, res) => __awaiter(void 0, void 0, void 0, functio
     var _a;
     try {
         // get all the new fields
-        const { newName, newDescription, newPrice, newCategory, newInStock, newRating } = req.body;
-        // check if any dish with new name exists
-        const dishWithNewNameAlreadyExists = yield dish_model_1.DishModel.findOne({ newName });
-        if (dishWithNewNameAlreadyExists) {
-            throw new ApiError_1.ApiError(400, "Dish with new name already exists");
-        }
+        const { newName, newDescription, newPrice, newCategory, newInStock, newRating, } = req.body;
         // update the picture
         const newDishPictureLocalPath = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
         let updatedData = {};
@@ -40,7 +35,7 @@ const editDishFunction = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 image: newDishPicture.secure_url,
                 category: newCategory,
                 inStock: newInStock,
-                rating: newRating
+                rating: newRating,
             };
         }
         else {
@@ -51,7 +46,7 @@ const editDishFunction = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 price: newPrice,
                 category: newCategory,
                 inStock: newInStock,
-                rating: newRating
+                rating: newRating,
             };
         }
         // get the dish to be edited and edit
@@ -63,7 +58,7 @@ const editDishFunction = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (err) {
         console.error(err);
-        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ "error": err });
+        res.status((err === null || err === void 0 ? void 0 : err.statusCode) || 500).json({ error: err });
     }
 });
 exports.editDishFunction = editDishFunction;

@@ -9,10 +9,12 @@ const editDish_controller_1 = require("../../controllers/dishControllers/editDis
 const removeDish_controller_1 = require("../../controllers/dishControllers/removeDish.controller");
 const searchDish_controller_1 = require("../../controllers/dishControllers/searchDish.controller");
 const searchDish_controller_2 = require("../../controllers/dishControllers/searchDish.controller");
+const searchDish_controller_3 = require("../../controllers/dishControllers/searchDish.controller");
 const multer_middleware_1 = require("../../middlewares/multer.middleware");
 const router = (0, express_1.Router)();
 router.get("/all", getAllDish_controller_1.getAllDishesFunction);
 router.get("/search/:dish", searchDish_controller_1.getSearchedDishFunction);
+router.get("/searchById/:dishId", searchDish_controller_3.getDishBySearchId);
 router.get("/category/:category", searchDish_controller_2.getDishBySearchedCategoryFunction);
 router.post("/add", auth_middleware_1.verifyUserAutherization, adminCheck_middleware_1.checkIfAdmin, multer_middleware_1.upload.single("image"), addDish_controller_1.addDishFunction);
 router.delete("/remove/:id", auth_middleware_1.verifyUserAutherization, adminCheck_middleware_1.checkIfAdmin, removeDish_controller_1.removeDishFunction);

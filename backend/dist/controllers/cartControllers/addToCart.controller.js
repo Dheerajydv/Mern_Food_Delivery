@@ -33,11 +33,6 @@ const addToCartFunction = (req, res) => __awaiter(void 0, void 0, void 0, functi
             user: userMakingRequest._id,
         });
         if (alreadyCreatedCart) {
-            // const updatedCart = await CartModel.findOneAndUpdate({
-            //     user: userMakingRequest._id,
-            // }, {
-            //     items
-            // });
             const productToAddInAlreadyExistingCart = {
                 product: productToAdd._id,
                 quantity,

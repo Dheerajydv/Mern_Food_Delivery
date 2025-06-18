@@ -13,7 +13,7 @@ const app = express();
 // Middleware
 app.use(cookirParser());
 dotenv.config();
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes

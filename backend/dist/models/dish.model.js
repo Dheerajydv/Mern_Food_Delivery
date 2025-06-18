@@ -54,15 +54,8 @@ const DishSchema = new mongoose_1.Schema({
     },
     category: {
         type: String,
-        enum: [
-            "Pizzas",
-            "Burgers",
-            "Sandwitches",
-            "Desserts",
-            "Beverages",
-            "Non-Veg",
-        ],
-        required: true
+        enum: ["Pizzas", "Burgers", "Sandwitches", "Desserts", "Beverages"],
+        required: true,
     },
     inStock: {
         type: Boolean,
