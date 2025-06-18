@@ -8,7 +8,7 @@ export default defineConfig({
     server: {
         proxy: {
             "/api": {
-                target: "http://localhost:8000",
+                target: "https://mern-food-delivery-oz3t.onrender.com",
                 secure: false,
                 changeOrigin: true,
                 ws: true,
