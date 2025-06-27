@@ -4,8 +4,20 @@ import CustomButton from "../components/CustomButton";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+const getDishData = () => {
+    const dishId = JSON.parse(
+        localStorage.getItem("dishIdToEdit") || "null"
+    );
+
+    return dishId;
+}
 
 const EditPage = () => {
+
+    //states
+    const navigate = useNavigate()
     const [editDishFormData, setEditDishFormData] =
         useState<EditFormDishDataType>({
             name: "",
@@ -24,10 +36,10 @@ const EditPage = () => {
         }
     };
 
+    //handle functions
     useEffect(() => {
-        const dishId = JSON.parse(
-            localStorage.getItem("dishIdToEdit") || "null"
-        );
+        const dishId = getDishData()
+
         axios
             .get(`/api/v1/dish/searchById/${dishId}`)
             .then((response) => {
@@ -49,25 +61,36 @@ const EditPage = () => {
                 toast.error(err?.response.data.error.message);
             });
     }, [setEditDishFormData]);
+
     const handleDoneBtnClick = async (e: any) => {
         e.preventDefault();
-        const dishId = JSON.parse(
-            localStorage.getItem("dishIdToEdit") || "null"
-        );
+
+        const dishId = getDishData()
+
+        // console.log(editDishFormData);
+
         try {
             const response = await axios.post(
                 `/api/v1/dish/edit/${dishId}`,
                 {
-                    editDishFormData,
-                    newImage,
+                    newName: editDishFormData.name,
+                    newDescription: editDishFormData.description,
+                    newPrice: editDishFormData.price,
+                    newCategory: editDishFormData.category,
+                    newInStock: editDishFormData.inStock,
+                    newRating: editDishFormData.rating,
+                    newImage
                 },
                 {
                     withCredentials: true,
                     headers: { "Content-Type": "multipart/form-data" },
                 }
             );
-            // console.log(response.data.message);
+            console.log(response.data);
             toast.success(response.data.message);
+
+            navigate("/");
+
         } catch (err: any) {
             console.log(err?.response);
             console.error(err?.response.data.error);
@@ -76,7 +99,7 @@ const EditPage = () => {
     };
 
     return (
-        <main className=" h-fit bg-gray-100 w-screen">
+        <main className=" h-fit w-screen">
             <Navbar />
             <div className="flex-center min-h-screen">
                 <form className="flex-center flex-col">
@@ -144,10 +167,10 @@ const EditPage = () => {
                         onChange={(e) => {
                             setEditDishFormData({
                                 ...editDishFormData,
-                                inStock: Boolean(e.target.value),
+                                inStock: e.target.checked,
                             });
                         }}
-                        className="w-48 mb-4  py-2 bg-white px-4 rounded-lg shadow-md"
+                        className="w-48 mb-4 py-2 bg-white px-4 rounded-lg shadow-md"
                         type="checkbox"
                     />
                     <label htmlFor="rating">

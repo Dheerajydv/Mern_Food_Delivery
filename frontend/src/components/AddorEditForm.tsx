@@ -24,6 +24,7 @@ const AddorEditForm = () => {
     };
     const handleAddDishFunction = async (e: any) => {
         e.preventDefault();
+
         const { name, description, price, category, inStock, rating } =
             addDishFormData;
 
@@ -33,7 +34,7 @@ const AddorEditForm = () => {
             } else if (description && description.length > 500) {
                 toast.error("Description too long");
             } else {
-                const response = await axios.post(
+                const response: any = await axios.post(
                     "/api/v1/dish/add",
                     {
                         name,
@@ -51,6 +52,13 @@ const AddorEditForm = () => {
                 );
                 console.log(response.data);
                 toast.success(response.data.message);
+
+                toast.promise(response, {
+                    loading: 'Adding.....',
+                    success: 'Dish Added',
+                    error: 'Error when fetching',
+                });
+
             }
         } catch (err: any) {
             console.error(err?.response.data.error);
@@ -59,7 +67,7 @@ const AddorEditForm = () => {
     };
     return (
         <div>
-            <form className="">
+            <form className="lg:gap-4">
                 {/* <label htmlFor="name" className="w-40">
                     Dish Name
                 </label> */}
@@ -73,7 +81,7 @@ const AddorEditForm = () => {
                             name: e.target.value,
                         });
                     }}
-                    className="w-48 mb-4  py-2 bg-white px-4 rounded-lg shadow-md"
+                    className="w-48 mb-4 lg:mx-4 py-2 bg-white px-4 rounded-lg shadow-md"
                     type="text"
                 />
 
@@ -88,7 +96,7 @@ const AddorEditForm = () => {
                         });
                     }}
                     type="text"
-                    className="w-48 mb-4 py-2 bg-white px-4 rounded-lg shadow-md"
+                    className="w-48 mb-4 py-2 lg:mx-4  bg-white px-4 rounded-lg shadow-md"
                 />
                 {/* <label htmlFor="description">Description</label> */}
                 <input
@@ -102,7 +110,7 @@ const AddorEditForm = () => {
                         });
                     }}
                     type="number"
-                    className="w-48 mb-4 py-2 bg-white px-4 rounded-lg shadow-md"
+                    className="w-48 mb-4 py-2 lg:mx-4  bg-white px-4 rounded-lg shadow-md"
                 />
                 {/* <label htmlFor="price">Price</label> */}
                 <input
@@ -116,7 +124,7 @@ const AddorEditForm = () => {
                         });
                     }}
                     type="text"
-                    className="w-48 mb-4 py-2 bg-white px-4 rounded-lg shadow-md"
+                    className="w-48 mb-4 py-2 lg:mx-4  bg-white px-4 rounded-lg shadow-md"
                 />
                 {/* <label htmlFor="category">Category</label> */}
                 <label htmlFor="inStock">InStock</label>
@@ -131,7 +139,7 @@ const AddorEditForm = () => {
                         });
                     }}
                     type="checkbox"
-                    className="w-48 mb-4 py-2 bg-white px-4 rounded-lg shadow-md"
+                    className="w-48 mb-4 py-2 lg:mx-4  bg-white px-4 rounded-lg"
                 />
                 <label htmlFor="rating">
                     Rating {addDishFormData?.rating}⭐️
@@ -149,13 +157,13 @@ const AddorEditForm = () => {
                     type="range"
                     min={0}
                     max={5}
-                    className="w-48 mb-4 py-2 bg-white px-4 rounded-lg shadow-md"
+                    className="w-48 mb-4 py-2 lg:mx-4 bg-white px-4 rounded-lg"
                 />
                 <input
                     id="image"
                     type="file"
                     onChange={handleFileChange}
-                    className="w-48 mb-4 py-2 bg-white px-4 rounded-lg shadow-md"
+                    className="w-48 mb-4 py-2 lg:mx-4 bg-white px-4 rounded-lg shadow-md"
                 />
                 {/* <label htmlFor="image">Dish Image</label> */}
                 <CustomButton

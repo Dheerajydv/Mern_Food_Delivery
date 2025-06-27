@@ -17,7 +17,7 @@ const SearchBox = () => {
     const handleSearch = async (e: any) => {
         e.preventDefault();
         const capatalized = capitalizeWords(searchQuery);
-        const slugForm = capatalized.replace(/\s+/g, "-");
+        const slugForm = capatalized.replace(/\s+/g, "-")
         try {
             const response = await axios.get(`/api/v1/dish/search/${slugForm}`);
             setDishData([response.data.data]);

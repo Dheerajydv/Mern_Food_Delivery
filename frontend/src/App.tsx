@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import CartPage from "./pages/CartPage";
 import ProfilePage from "./pages/ProfilePage";
 import EditPage from "./pages/EditPage";
+import EditUserPage from "./pages/EditUserPage";
 
 function App() {
     const { isAuthenticated, setIsAuthenticated } = findIsAuthenticated();
@@ -50,6 +51,11 @@ function App() {
                     }
                 />
                 <Route path="/edit" element={<EditPage />} />
+                <Route path="/edit-user" element={isAuthenticated ? (
+                    <EditUserPage />
+                ) : (
+                    <Navigate to="/login" />
+                )} />
             </Routes>
         </>
     );

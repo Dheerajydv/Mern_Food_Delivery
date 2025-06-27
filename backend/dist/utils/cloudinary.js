@@ -15,13 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadOnCloudinary = void 0;
 const cloudinary_1 = require("cloudinary");
 const fs_1 = __importDefault(require("fs"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 cloudinary_1.v2.config({
-    // cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
-    // api_key: process.env.CLOUDINARY_API_KEY!,
-    // api_secret: process.env.CLOUDINARY_API_SECRET!,
-    cloud_name: "dhz7abkkq",
-    api_key: "393752891396517",
-    api_secret: "HobM0Jxc1WMUt-CbLCOS6OlJId8",
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 const uploadOnCloudinary = (localFilePath) => __awaiter(void 0, void 0, void 0, function* () {
     try {

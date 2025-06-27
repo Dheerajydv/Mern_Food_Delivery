@@ -5,17 +5,16 @@ import { LoginForm, SignUpForm } from "../components/componentsExports";
 const AuthPage = () => {
     const location = useLocation();
     return (
-        <div className=" h-screen w-screen flex justify-center items-center">
-            <div className="w-1/2 h-full bg-gray-100">
-                {location.pathname == "/login" ? <LoginForm /> : <SignUpForm />}
-            </div>
-            <div className="w-1/2 flex justify-center items-center bg-gray-200 h-full">
+        <div className="h-screen w-screen md:flex md:flex-center">
+            <div className="w-full h-1/2 md:w-1/2 md:h-full">
                 <img
-                    className="h-96 shadow-2xl border-amber-300 rounded-4xl hover:rounded-none hover:h-full transition-all object-cover duration-200 ease-in-out"
+                    className="h-full w-full object-cover"
                     src={authPageBg}
                 />
             </div>
-            <div></div>
+            <div className="w-full h-1/2 md:h-full md:w-1/2">
+                {location.pathname == "/login" ? <LoginForm /> : <SignUpForm />}
+            </div>
         </div>
     );
 };

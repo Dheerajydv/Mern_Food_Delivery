@@ -3,6 +3,7 @@ import { CartItemsCard, Navbar } from "../components/componentsExports";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { cartContext } from "../context/CartContext";
+// import jwt from "jsonwebtoken";
 
 const CartPage = () => {
     const { cartData, setCartData } = cartContext();
@@ -11,6 +12,7 @@ const CartPage = () => {
         localStorage.getItem("currentUserId") || "null"
     );
     useEffect(() => {
+        console.log("first")
         axios
             .get(`/api/v1/orders/${userMakingRequestId}/all`)
             .then((response) => {
@@ -21,7 +23,7 @@ const CartPage = () => {
                 console.log(err);
                 toast.error(err?.response.data.error.message);
             });
-    }, [cartData]);
+    }, [setCartData]);
     useEffect(() => {
         cartData.forEach((element) => {
             setTotalPrize((prev) => prev + element.price);
@@ -29,20 +31,10 @@ const CartPage = () => {
     }, [setCartData]);
 
     return (
-        <div className="min-h-screen bg-gray-100 w-screen">
+        <div className="min-h-screen w-screen">
             <Navbar />
-            <main className="flex-center">
-                <div className="h-screen px-2 border-r-1 pt-4 w-3/12 flex-col">
-                    {cartData.map((dish) => (
-                        <div key={dish.name}>
-                            {dish.name}: ${dish.price}
-                        </div>
-                    ))}
-                    <hr />
-
-                    <div>Total Prize: ${totalPrize}</div>
-                </div>
-                <div className="w-9/12 flex-center flex-wrap h-screen ">
+            <main className="flex-col min-h-screen">
+                <div className="w-full h-fit flex-center flex-wrap">
                     {cartData.length > 0 ? (
                         cartData.map((cartComponent: any) => (
                             <CartItemsCard
@@ -61,6 +53,16 @@ const CartPage = () => {
                             Nothing in Cart
                         </h1>
                     )}
+                </div>
+                <div className="h-screen px-2 pt-4 w-3/12 flex-col">
+                    {cartData.map((dish) => (
+                        <div key={dish.name}>
+                            {dish.name}: ${dish.price}
+                        </div>
+                    ))}
+                    <hr />
+
+                    <div>Total Prize: ${totalPrize}</div>
                 </div>
 
                 <Toaster position="top-center" />

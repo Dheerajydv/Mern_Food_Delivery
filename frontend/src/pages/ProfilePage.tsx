@@ -4,11 +4,14 @@ import {
     SideBar,
     AddorEditForm,
     AllDish,
+    CustomButton,
 } from "../components/componentsExports";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
+    const navigate = useNavigate()
     const [userData, setUserData] = useState<any>({});
     useEffect(() => {
         axios
@@ -22,29 +25,33 @@ const ProfilePage = () => {
                 toast.error(err?.response.data.error.message);
             });
     }, []);
+    const handleEditBtnClick = () => {
+        navigate("/edit-user")
+    }
     return (
-        <div className="h-fit bg-gray-100 w-screen">
+        <div className="h-fit w-screen">
             <Navbar />
-            <div className="flex-center w-screen min-h-screen">
+            <div className="flex-col w-screen h-screen">
+                <div className="px-2 w-screen pt-4 flex-col">
+                    <section className="w-full h-52 flex-col flex-center">
+                        <img
+                            src={userData?.profilePicture}
+                            alt="Profile picture"
+                            className="w-28 rounded-full "
+                        />
+                        <h1 className="mx-5 text-xl ">Username: {userData?.username}</h1>
+                        <h1>Email: {userData?.email}</h1>
+                        <CustomButton title="Change User Info" handleBtnClick={handleEditBtnClick} />
+                    </section>
+                </div>
                 {userData.isAdmin ? (
-                    <div className="h-screen  px-2 border-r-1 pt-4 w-3/12 flex-col">
-                        <section className=" flex-center ">
-                            <img
-                                src={userData?.profilePicture}
-                                alt="Profile picture"
-                                className="w-28 rounded-full "
-                            />
-                            <h1 className="mx-5">{userData?.username}</h1>
-                            <h1>{userData?.email}</h1>
-                        </section>
-                        <section className="px-2 pt-4 w-3/12 flex-col">
-                            <AddorEditForm />
-                        </section>
-                    </div>
+                    <section className="px-2 pt-4 w-full flex-col">
+                        <AddorEditForm />
+                    </section>
                 ) : (
                     <SideBar />
                 )}
-                <div className="w-9/12">
+                <div className="w-screen">
                     <section className="h-screen">
                         {userData.isAdmin ? (
                             <AllDish />
@@ -59,7 +66,7 @@ const ProfilePage = () => {
 
                 <Toaster position="top-center" />
             </div>
-        </div>
+        </div >
     );
 };
 export default ProfilePage;

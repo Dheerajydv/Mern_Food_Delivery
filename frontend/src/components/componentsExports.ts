@@ -6,7 +6,6 @@ import Card from "./Card";
 import CartItemsCard from "./CartItemsCard";
 import CategoryBox from "./CategoryBox";
 import CustomButton from "./CustomButton";
-
 import Navbar from "./Navbar";
 import SearchBox from "./SearchBox";
 import SideBar from "./SideBar";
@@ -20,7 +19,6 @@ export {
     CartItemsCard,
     CategoryBox,
     CustomButton,
-
     Navbar,
     SearchBox,
     SideBar,

@@ -96,3 +96,10 @@ export interface EditFormDishDataType {
     inStock?: boolean;
     rating?: number;
 }
+
+export interface EditUserDataType {
+    newUsername?: string;
+    newEmail?: string;
+    oldPassword?: string
+    newPassword?: string;
+}

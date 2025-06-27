@@ -1,13 +1,13 @@
 import { Router } from "express";
-import {checkIfAdmin} from "../../middlewares/adminCheck.middleware"
-import {verifyUserAutherization} from "../../middlewares/auth.middleware"
-import {getAllDishesFunction} from "../../controllers/dishControllers/getAllDish.controller"
-import {addDishFunction} from "../../controllers/dishControllers/addDish.controller"
-import {editDishFunction} from "../../controllers/dishControllers/editDish.controller"
-import {removeDishFunction} from "../../controllers/dishControllers/removeDish.controller"
-import {getSearchedDishFunction} from "../../controllers/dishControllers/searchDish.controller"
-import {getDishBySearchedCategoryFunction} from "../../controllers/dishControllers/searchDish.controller"
-import {getDishBySearchId} from "../../controllers/dishControllers/searchDish.controller"
+import { checkIfAdmin } from "../../middlewares/adminCheck.middleware"
+import { verifyUserAutherization } from "../../middlewares/auth.middleware"
+import { getAllDishesFunction } from "../../controllers/dishControllers/getAllDish.controller"
+import { addDishFunction } from "../../controllers/dishControllers/addDish.controller"
+import { editDishFunction } from "../../controllers/dishControllers/editDish.controller"
+import { removeDishFunction } from "../../controllers/dishControllers/removeDish.controller"
+import { getSearchedDishFunction } from "../../controllers/dishControllers/searchDish.controller"
+import { getDishBySearchedCategoryFunction } from "../../controllers/dishControllers/searchDish.controller"
+import { getDishBySearchId } from "../../controllers/dishControllers/searchDish.controller"
 import { upload } from "../../middlewares/multer.middleware";
 
 const router = Router();

@@ -61,7 +61,6 @@ const getDishBySearchId = (req, res) => __awaiter(void 0, void 0, void 0, functi
             throw new ApiError_1.ApiError(400, "Dish id not found");
         }
         const dish = yield dish_model_1.DishModel.findById(dishId);
-        console.log(dish);
         if (!dish) {
             throw new ApiError_1.ApiError(404, "Dish not found");
         }

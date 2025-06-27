@@ -28,8 +28,9 @@ const Card = ({
             const response = await axios.delete(
                 `/api/v1/dish/remove/${dishId}`
             );
-            console.log(response.data);
+            // console.log(response.data);
             toast.success(response.data.message);
+
         } catch (err: any) {
             console.error(err?.response.data.error);
             toast.error(err?.response.data.error.message);
@@ -42,6 +43,10 @@ const Card = ({
     const handleAddToCartBtnClick = async () => {
         if (!isAuthenticated) {
             toast.error("Login Required");
+
+        } else if (inStock === false) {
+            toast.error("Sorry the dish is out of stock")
+
         } else {
             const userData = await axios.get("/api/v1/user/me");
             const userMakingRequestId = userData.data.data[0]._id;
@@ -66,7 +71,7 @@ const Card = ({
         }
     };
     return (
-        <div className="h-[40rem] shadow-2xl rounded-2xl mx-2 my-2  w-96">
+        <div className={isAuthenticated && isAdmin === "true" ? "h-[43rem] shadow-2xl rounded-2xl mx-2 my-2  w-96" : "h-[40rem] shadow-2xl rounded-2xl mx-2 my-2  w-96"}>
             <div className="h-[18rem] rounded-2xl object-cover overflow-hidden m-2 flex-center">
                 <img
                     src={imageUrl || noimage}
@@ -83,7 +88,7 @@ const Card = ({
 
                 <CategoryBox title={category} />
 
-                {inStock == true ? <p>In Stock: 🟢</p> : <p>In Stock: 🔴</p>}
+                {inStock ? <p className="bg-green-500 text-white my-2 rounded-2xl cursor-pointer shadow-2xs w-fit h-8 flex-center px-2 py-1">In Stock</p> : <p className="bg-red-500 my-2 rounded-2xl cursor-pointer shadow-2xs w-fit h-8 flex-center text-white px-2 py-1">Out of Stock</p>}
                 <p>{`Rating: ${rating} ⭐️`}</p>
                 <div>
                     <label htmlFor="inputQuantity">Quantity: </label>
@@ -100,8 +105,8 @@ const Card = ({
                     title="Add to Cart"
                     handleBtnClick={handleAddToCartBtnClick}
                 />
-                {isAdmin === "true" ? (
-                    <div>
+                {isAdmin === "true" && isAuthenticated ? (
+                    <div className="w-full flex-center">
                         <CustomButton
                             title="Edit Dish"
                             containerStyles="w-full my-2 mx-2"

@@ -15,11 +15,11 @@ const HomePage = () => {
             .catch((err) => console.log(err?.response.data.error));
     }, [setDishData]);
     return (
-        <main className=" h-fit bg-gray-100 w-screen">
+        <main className="h-fit w-screen">
             <Navbar />
-            <div className="flex-center min-h-screen">
+            <div className="flex-col min-h-screen">
                 <SideBar />
-                <div className="w-9/12 flex-center flex-wrap h-screen ">
+                <div className="w-full flex-center flex-wrap h-screen ">
                     {dishData.map((dish) => (
                         <Card
                             key={dish.name}

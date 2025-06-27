@@ -57,11 +57,11 @@ export const getDishBySearchedCategoryFunction = async (
 export const getDishBySearchId = async (req: Request, res: Response) => {
     try {
         const dishId = req.params.dishId
-        if(!dishId){
+        if (!dishId) {
             throw new ApiError(400, "Dish id not found")
         }
         const dish = await DishModel.findById(dishId)
-        if(!dish){
+        if (!dish) {
             throw new ApiError(404, "Dish not found")
         }
         res.status(200).json(new ApiResponse(200, dish, "Dish found"))

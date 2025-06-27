@@ -51,7 +51,7 @@ const SignUpForm = () => {
     };
     return (
         <div className="h-full flex-center w-full">
-            <form className="flex-center h-2/3 w-2/3 rounded-4xl shadow-2xl flex-col">
+            <form className="flex-center h-2/3 w-2/3 rounded-4xl shadow-2xl flex-col p-4">
                 <h1 className="font-extrabold text-4xl animate-bounce ">
                     SignUp
                 </h1>
